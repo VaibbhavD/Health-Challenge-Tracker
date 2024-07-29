@@ -7,8 +7,11 @@
       <input
         id="name"
         type="text"
+        [(ngModel)]="name"
+        name="name"
         placeholder="Enter user's name"
         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+        required
       />
     </div>
     <div class="mb-4">
@@ -17,7 +20,10 @@
       >
       <select
         id="workoutType"
+        [(ngModel)]="workoutType"
+        name="workoutType"
         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+        required
       >
         <option *ngFor="let type of workoutTypes" [value]="type">
           {{ type }}
@@ -31,9 +37,11 @@
       <input
         id="minutes"
         type="number"
-        formControlName="minutes"
+        [(ngModel)]="minutes"
+        name="minutes"
         placeholder="Enter workout duration"
         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+        required
       />
     </div>
     <button
