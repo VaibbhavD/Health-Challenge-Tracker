@@ -4,6 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UserDataService, User } from '../Services/User_data';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-add-user',
   standalone: true,
@@ -15,7 +16,7 @@ export class AddUserComponent {
   workoutTypes = ['Running', 'Cycling', 'Swimming', 'Yoga'];
 
   name: string = '';
-  workoutType: string = 'Cycling';
+  workoutType: string = '';
   minutes: number = 0;
 
   constructor(private UserDataService: UserDataService) {}
