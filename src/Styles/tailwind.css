@@ -1,4 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "~@angular/material/prebuilt-themes/azure-blue.css";
