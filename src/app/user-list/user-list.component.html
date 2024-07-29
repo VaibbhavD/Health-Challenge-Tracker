@@ -4,6 +4,7 @@
     <input
       type="text"
       placeholder="Search by Username"
+      (input)="applyfilter($event)"
       class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
     />
   </div>
@@ -18,10 +19,12 @@
     <select
       id="workoutType"
       class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+      (change)="filterByWorketType($event.target.value)"
     >
-      <option disabled value="">All Workout Types</option>
-      <option *ngFor="let type of workoutTypes" value="y">{{ type }}</option>
-      <!-- <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option> -->
+      <option value="">All Workout Types</option>
+      <option *ngFor="let type of workoutTypes" [value]="type">
+        {{ type }}
+      </option>
     </select>
   </div>
 
@@ -53,8 +56,10 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        <tr *ngFor="let user of users; let i = index">
-          <td class="px-4 py-2 text-sm text-gray-700">{{ i + 1 }}</td>
+        <tr *ngFor="let user of pagedUsers; let i = index">
+          <td class="px-4 py-2 text-sm text-gray-700">
+            {{ currentPage * pageSize + i + 1 }}
+          </td>
           <td class="px-4 py-2 text-sm text-gray-700">{{ user.name }}</td>
           <td class="px-4 py-2 text-sm text-gray-700">
             {{ user.workoutType }}
@@ -68,12 +73,16 @@
   <!-- Pagination Controls -->
   <div class="mt-4 flex justify-between">
     <button
+      [disabled]="currentPage === 0"
       class="px-4 py-2 bg-gray-200 rounded-md disabled:opacity-50 hover:bg-gray-300"
+      (click)="previousPage()"
     >
       Previous
     </button>
     <button
+      [disabled]="currentPage >= pageCount - 1"
       class="px-4 py-2 bg-gray-200 rounded-md disabled:opacity-50 hover:bg-gray-300"
+      (click)="nextPage()"
     >
       Next
     </button>
