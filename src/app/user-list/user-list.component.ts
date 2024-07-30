@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserDataService, User } from '../Services/User_data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +22,9 @@ export class UserListComponent {
   worktype: string = '';
   isshowFilter: boolean = false;
 
-  constructor(private UserDataService: UserDataService) {
+  constructor(
+    @Inject(UserDataService) private UserDataService: UserDataService
+  ) {
     this.initializeData();
   }
 

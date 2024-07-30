@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UserDataService, User } from '../Services/User_data';
@@ -19,7 +19,9 @@ export class AddUserComponent {
   workoutType: string = '';
   minutes: number = 0;
 
-  constructor(private UserDataService: UserDataService) {}
+  constructor(
+    @Inject(UserDataService) private UserDataService: UserDataService
+  ) {}
 
   onSubmit() {
     let data: User = {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
 import { UserDataService } from '../Services/User_data';
 import { CommonModule } from '@angular/common';
@@ -24,14 +24,16 @@ export class WorkoutChartComponent implements OnInit {
   barChartPlugins = [];
   barChartType: ChartType = 'bar'; // Define barChartType
 
-  constructor(private userDataService: UserDataService) {}
+  constructor(
+    @Inject(UserDataService) private UserDataService: UserDataService
+  ) {}
 
   ngOnInit(): void {
     this.loadChartData();
   }
 
   loadChartData(): void {
-    const users = this.userDataService.getUsers();
+    const users = this.UserDataService.getUsers();
     this.barChartLabels = users.map((user) => user.name);
     this.barChartData = {
       labels: this.barChartLabels,
