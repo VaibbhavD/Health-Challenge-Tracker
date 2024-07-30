@@ -19,6 +19,7 @@ export class UserListComponent {
   pageSize = 5;
   pageCount = 0;
   worktype: string = '';
+  isshowFilter: boolean = false;
 
   constructor(private UserDataService: UserDataService) {
     this.initializeData();
@@ -31,6 +32,10 @@ export class UserListComponent {
       this.updatePageCount();
       this.updatePageUsers();
     });
+  }
+
+  filterShow() {
+    this.isshowFilter = !this.isshowFilter;
   }
 
   applyfilter(event: any) {
