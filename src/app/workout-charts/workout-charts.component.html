@@ -1,1 +1,12 @@
-<p>workout-charts works!</p>
+<div class="p-4 bg-white rounded-lg shadow">
+  <h2 class="mb-4 text-xl font-bold text-center">Workout Chart</h2>
+  <canvas
+    baseChart
+    [data]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    class="w-full p-28"
+  ></canvas>
+</div>
