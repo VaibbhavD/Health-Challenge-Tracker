@@ -52,6 +52,7 @@ export class UserListComponent {
     this.filteredUsers = type
       ? this.users.filter((user) => user.workoutType == type)
       : [...this.users];
+    this.currentPage = 0;
     this.updatePageCount();
     this.updatePageUsers();
   }
