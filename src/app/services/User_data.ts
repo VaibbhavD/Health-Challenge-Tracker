@@ -17,6 +17,9 @@ export class UserDataService {
 
   constructor() {
     const initialUsers = this.getUsersFromLocalStorage();
+    if (initialUsers.length == 0) {
+      this.initializeDefaultUsers();
+    }
     this.usersSubject = new BehaviorSubject<User[]>(initialUsers);
   }
 
@@ -54,5 +57,13 @@ export class UserDataService {
       user.workoutType.trim() !== '' &&
       user.minutes > 0
     );
+  }
+  private initializeDefaultUsers(): void {
+    const defaultUsers: User[] = [
+      { name: 'John Doe', workoutType: 'Running', minutes: 30 },
+      { name: 'Jane Smith', workoutType: 'Swimming', minutes: 60 },
+      { name: 'Mike Johnson', workoutType: 'Yoga', minutes: 50 },
+    ];
+    this.setUsersToLocalStorage(defaultUsers);
   }
 }
