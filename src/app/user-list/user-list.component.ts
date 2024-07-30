@@ -25,10 +25,12 @@ export class UserListComponent {
   }
 
   initializeData() {
-    this.users = this.UserDataService.getUsers();
-    this.filteredUsers = [...this.users];
-    this.updatePageCount();
-    this.updatePageUsers();
+    this.UserDataService.getUsersObservable().subscribe((users) => {
+      this.users = this.UserDataService.getUsers();
+      this.filteredUsers = [...this.users];
+      this.updatePageCount();
+      this.updatePageUsers();
+    });
   }
 
   applyfilter(event: any) {
