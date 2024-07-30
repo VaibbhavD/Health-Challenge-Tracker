@@ -1,23 +1,45 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { BaseChartDirective } from 'ng2-charts';
+import { UserDataService } from '../service/User_data';
 
-import { WorkoutChartsComponent } from './workout-charts.component';
+import { WorkoutChartComponent } from './workout-charts.component';
 
-describe('WorkoutChartsComponent', () => {
-  let component: WorkoutChartsComponent;
-  let fixture: ComponentFixture<WorkoutChartsComponent>;
+describe('WorkoutChartComponent', () => {
+  let component: WorkoutChartComponent;
+  let fixture: ComponentFixture<WorkoutChartComponent>;
+  let userDataService: jasmine.SpyObj<UserDataService>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [WorkoutChartsComponent]
-    })
-    .compileComponents();
+    const spy = jasmine.createSpyObj('UserDataService', ['getUsers']);
 
-    fixture = TestBed.createComponent(WorkoutChartsComponent);
+    await TestBed.configureTestingModule({
+      declarations: [WorkoutChartComponent],
+      imports: [BaseChartDirective],
+      providers: [{ provide: UserDataService, useValue: spy }],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
+
+    userDataService = TestBed.inject(
+      UserDataService
+    ) as jasmine.SpyObj<UserDataService>;
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(WorkoutChartComponent);
     component = fixture.componentInstance;
+    userDataService.getUsers.and.returnValue([
+      { name: 'John Doe', workoutType: 'Running', minutes: 30 },
+      { name: 'Jane Smith', workoutType: 'Swimming', minutes: 60 },
+    ]);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should load chart data', () => {
+    expect(component.barChartLabels).toEqual(['John Doe', 'Jane Smith']);
   });
 });
