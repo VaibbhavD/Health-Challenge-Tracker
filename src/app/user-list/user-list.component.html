@@ -18,7 +18,7 @@
         type="text"
         placeholder="Search by Username"
         (input)="applyfilter($event)"
-        class="w-1/3 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+        class="md:w-1/3 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
       />
     </div>
 
@@ -26,9 +26,9 @@
     <div class="mb-4 flex justify-end">
       <select
         id="workoutType"
-        class="w-1/3 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+        class="md:w-1/3 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
         [(ngModel)]="worktype"
-        (change)="filterByWorkoutType('worktype')"
+        (change)="filterByWorkoutType(worktype)"
       >
         <option value="">All Workout Types</option>
         <option *ngFor="let type of workoutTypes" [value]="type">
