@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
-import { UserDataService } from '../services/User_data';
+import { UserDataService } from '../service/User_data';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 
