@@ -18,6 +18,7 @@ export class UserListComponent {
   currentPage = 0;
   pageSize = 5;
   pageCount = 0;
+  worktype: string = '';
 
   constructor(private UserDataService: UserDataService) {
     this.initializeData();
@@ -27,7 +28,7 @@ export class UserListComponent {
     this.users = this.UserDataService.getUsers();
     this.filteredUsers = [...this.users];
     this.updatePageCount();
-    this.updatePageCount();
+    this.updatePageUsers();
   }
 
   applyfilter(event: any) {
@@ -40,7 +41,7 @@ export class UserListComponent {
     this.updatePageUsers();
   }
 
-  filterByWorketType(type: string) {
+  filterByWorkoutType(type: string) {
     this.filteredUsers = type
       ? this.users.filter((user) => user.workoutType == type)
       : [...this.users];
@@ -53,8 +54,8 @@ export class UserListComponent {
   }
 
   updatePageUsers() {
-    let start = this.pageCount * this.pageSize;
-    this.pagedUsers = this.users.slice(start, start + this.pageSize);
+    let start = this.currentPage * this.pageSize;
+    this.pagedUsers = this.filteredUsers.slice(start, start + this.pageSize);
   }
 
   nextPage() {
