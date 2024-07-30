@@ -19,7 +19,8 @@
     <select
       id="workoutType"
       class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-      (change)="filterByWorketType($event.target.value)"
+      [(ngModel)]="worktype"
+      (change)="filterByWorkoutType('worktype')"
     >
       <option value="">All Workout Types</option>
       <option *ngFor="let type of workoutTypes" [value]="type">
