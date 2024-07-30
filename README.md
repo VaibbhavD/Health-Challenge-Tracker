@@ -1,27 +1,68 @@
-# HealthChallengerTracker
+Workout Tracker
+Description
+The Workout Tracker is a single-page application (SPA) built using Angular 17+, Angular Material, and Tailwind CSS. This application allows users to add, view, and filter workout data. It also features pagination, search, and chart visualization of workout data.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.2.
+Features
+Add Users and Workouts: Users can input their name, workout type, and duration.
+Display Workouts: The workouts are displayed in a table with pagination for easy navigation.
+Search and Filter: Users can search by username and filter by workout type.
+Data Persistence: User data is stored in localStorage to persist across page reloads.
+Chart Visualization: A chart visualizes the total workout minutes for each user.
+Responsive Design: The application is responsive and works on different screen sizes.
+Installation
+Prerequisites
+Node.js and npm (Node Package Manager)
+Angular CLI
+Setup
+Clone the repository:
 
-## Development server
+bash
+Copy code
+git clone https://github.com/your-username/workout-tracker.git
+cd workout-tracker
+Install the dependencies:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+bash
+Copy code
+npm install
+Run the application:
 
-## Code scaffolding
+bash
+Copy code
+ng serve
+The application will be accessible at http://localhost:4200/.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Usage
+Add User and Workout: Use the form to add new users and their workout details.
+Search: Use the search bar to find users by name.
+Filter: Use the dropdown to filter workouts by type.
+View Charts: Check the chart section to see the total workout minutes for each user.
+Technologies Used
+Angular 17+: Framework for building the SPA.
+Angular Material: UI components for Angular.
+Tailwind CSS: Utility-first CSS framework for styling.
+Chart.js: Library for charting and visualization.
+Testing
+Unit Tests
+The application includes unit tests for one component and one service. To run the tests and generate a coverage report:
 
-## Build
+Run the tests:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+bash
+Copy code
+ng test --code-coverage
+View the coverage report:
 
-## Running unit tests
+The coverage report can be found in the coverage directory. Open the index.html file in a browser to view the detailed report.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Deployment
+deploy on Netlify- :
 
-## Running end-to-end tests
+Build the application:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+bash
+Copy code
+ng build --prod
+Deploy the dist folder to Netlify.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Follow the instructions on the Netlify dashboard to deploy the site.
