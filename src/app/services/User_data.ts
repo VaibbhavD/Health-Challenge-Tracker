@@ -1,4 +1,6 @@
+// src/app/services/user-data.service.ts
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export interface User {
   name: string;
@@ -11,40 +13,36 @@ export interface User {
 })
 export class UserDataService {
   private storageKey = 'workout-tracker-users';
+  private usersSubject: BehaviorSubject<User[]>;
 
   constructor() {
-    if (!localStorage.getItem(this.storageKey)) {
-      this.initializeData();
-    }
+    const initialUsers = this.getUsersFromLocalStorage();
+    this.usersSubject = new BehaviorSubject<User[]>(initialUsers);
   }
 
-  private initializeData(): void {
-    const initialData: User[] = [
-      { name: 'John Doe', workoutType: 'Running', minutes: 30 },
-      { name: 'Jane Smith', workoutType: 'Swimming', minutes: 60 },
-      { name: 'Mike Johnson', workoutType: 'Yoga', minutes: 50 },
-    ];
-    this.setLocalStorage(initialData);
+  private getUsersFromLocalStorage(): User[] {
+    const data = localStorage.getItem(this.storageKey);
+    return data ? JSON.parse(data) : [];
   }
 
-  private setLocalStorage(data: User[]): void {
-    try {
-      localStorage.setItem(this.storageKey, JSON.stringify(data));
-    } catch (e) {
-      console.error('Could not save data to localStorage:', e);
-    }
+  private setUsersToLocalStorage(users: User[]): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(users));
   }
 
   getUsers(): User[] {
-    const data = localStorage.getItem(this.storageKey);
-    return data ? JSON.parse(data) : [];
+    return this.usersSubject.value;
+  }
+
+  getUsersObservable() {
+    return this.usersSubject.asObservable();
   }
 
   addUser(user: User): void {
     if (this.isValidUser(user)) {
       const users = this.getUsers();
       users.push(user);
-      this.setLocalStorage(users);
+      this.setUsersToLocalStorage(users);
+      this.usersSubject.next(users); // Emit the new user list
     } else {
       console.error('Invalid user data:', user);
     }
