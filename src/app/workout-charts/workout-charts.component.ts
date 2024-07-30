@@ -1,12 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
+import { UserDataService } from '../Services/User_data';
+import { CommonModule } from '@angular/common';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
-  selector: 'app-workout-charts',
+  selector: 'app-workout-chart',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, BaseChartDirective],
   templateUrl: './workout-charts.component.html',
-  styleUrl: './workout-charts.component.css'
+  styleUrls: ['./workout-charts.component.css'],
 })
-export class WorkoutChartsComponent {
+export class WorkoutChartComponent implements OnInit {
+  barChartData: ChartConfiguration<'bar'>['data'] = {
+    datasets: [],
+    labels: [],
+  };
+  barChartLabels: string[] = []; // Define barChartLabels
+  barChartOptions: ChartOptions<'bar'> = {
+    responsive: true,
+  };
+  barChartLegend = true;
+  barChartPlugins = [];
+  barChartType: ChartType = 'bar'; // Define barChartType
 
+  constructor(private userDataService: UserDataService) {}
+
+  ngOnInit(): void {
+    this.loadChartData();
+  }
+
+  loadChartData(): void {
+    const users = this.userDataService.getUsers();
+    this.barChartLabels = users.map((user) => user.name);
+    this.barChartData = {
+      labels: this.barChartLabels,
+      datasets: [
+        {
+          data: users.map((user) => user.minutes),
+          label: 'Minutes',
+          backgroundColor: 'rgba(63, 81, 181, 0.2)',
+          borderColor: 'rgba(63, 81, 181, 1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+  }
 }
