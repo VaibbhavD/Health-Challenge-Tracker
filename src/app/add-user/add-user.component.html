@@ -1,55 +1,73 @@
-<div class="mb-4 p-4 bg-white rounded-md shadow-md">
-  <form (ngSubmit)="onSubmit()">
-    <div class="mb-4">
-      <label for="name" class="block text-sm font-medium text-gray-700"
-        >Name</label
+<h3 class="pl-5 pt-5 text-gray-800">Add User</h3>
+
+<div class="mb-4 p-4 pt-0 bg-white rounded-md shadow-md flex justify-center">
+  <form
+    (ngSubmit)="onSubmit()"
+    class="md:w-1/2 p-10 rounded-md w-full border-2 border-gray-300 flex-wrap justify-center bg-gray-50"
+  >
+    <!-- Email Input -->
+    <div class="mb-5">
+      <label
+        for="email"
+        class="block mb-2 font-medium text-gray-900 dark:text-white"
+        >Your Name</label
       >
       <input
+        type="name"
         id="name"
-        type="text"
         [(ngModel)]="name"
         name="name"
-        placeholder="Enter user's name"
-        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         required
       />
     </div>
-    <div class="mb-4">
-      <label for="workoutType" class="block text-sm font-medium text-gray-700"
+    <!-- Select Element for Workout Type -->
+    <div class="mb-5">
+      <label
+        for="workoutType"
+        class="block mb-2 font-medium text-gray-900 dark:text-white"
         >Workout Type</label
       >
       <select
         id="workoutType"
         [(ngModel)]="workoutType"
         name="workoutType"
-        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         required
       >
-        <option value="" disabled>All Workout Types</option>
+        <option value="" disabled selected>Select workout type</option>
         <option *ngFor="let type of workoutTypes" [value]="type">
           {{ type }}
         </option>
       </select>
     </div>
-    <div class="mb-4">
-      <label for="minutes" class="block text-sm font-medium text-gray-700"
+
+    <!-- Minutes Input -->
+    <div class="mb-5">
+      <label
+        for="minutes"
+        class="block mb-2 font-medium text-gray-900 dark:text-white"
         >Minutes</label
       >
       <input
-        id="minutes"
         type="number"
+        id="minutes"
         [(ngModel)]="minutes"
         name="minutes"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Enter workout duration"
-        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
         required
       />
     </div>
-    <button
-      type="submit"
-      class="mt-4 w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
-    >
-      Add User
-    </button>
+
+    <!-- Submit Button -->
+    <div class="flex justify-center">
+      <button
+        type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Submit
+      </button>
+    </div>
   </form>
 </div>
