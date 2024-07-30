@@ -1,5 +1,5 @@
-<div class="p-4 bg-white rounded-lg shadow">
-  <h2 class="mb-4 text-xl font-bold text-center">Workout Chart</h2>
+<h3 class="pl-10 pt-5 text-gray-800">Workout Chart</h3>
+<div class="md:px-20 bg-white rounded-lg shadow">
   <canvas
     baseChart
     [data]="barChartData"
@@ -7,6 +7,6 @@
     [options]="barChartOptions"
     [plugins]="barChartPlugins"
     [legend]="barChartLegend"
-    class="w-full p-28"
+    class="w-full md:px-10 lg:px-20"
   ></canvas>
 </div>
