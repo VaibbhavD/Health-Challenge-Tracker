@@ -30,7 +30,7 @@ export class UserListComponent {
   initializeData() {
     this.userDataService.getUsersObservable().subscribe((users) => {
       this.users = users;
-      if (!this.users) {
+      if (this.users.length == 0) {
         this.users = [
           {
             id: 1,
