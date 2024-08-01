@@ -12,12 +12,12 @@
 </div>
 <div class="mb-4 p-4 bg-white rounded-md">
   <!-- Search by Username -->
-  <div *ngIf="isshowFilter" class="">
+  <div *ngIf="isShowFilter" class="">
     <div class="mb-4 flex justify-end">
       <input
         type="text"
         placeholder="Search by Username"
-        (input)="applyfilter($event)"
+        (input)="applyFilter($event)"
         class="md:w-1/3 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
       />
     </div>
@@ -40,42 +40,46 @@
   </div>
 
   <!-- User Data Table -->
-  <div class="overflow-x-auto flex justify-center">
-    <table class="w-1/2 ml-2 divide-y divide-gray-200 bg-gray-100 min-h-60">
-      <thead>
+  <div class="overflow-x-auto flex justify-center md:px-10">
+    <table class="w-full divide-y divide-gray-200 bg-gray-100 min-h-60 ml-10">
+      <thead class="">
         <tr>
           <th
-            class="pl-4 text-left text-sm font-medium text-gray-500 uppercase"
-          >
-            Sr.No
-          </th>
-          <th
-            class="px-4 py-2 text-left text-sm font-medium text-gray-500 uppercase"
+            class="pl-10 text-left text-sm font-medium text-gray-500 uppercase"
           >
             Name
           </th>
           <th
             class="px-4 py-2 text-left text-sm font-medium text-gray-500 uppercase"
           >
-            Workout Type
+            Workouts
           </th>
           <th
             class="px-4 py-2 text-left text-sm font-medium text-gray-500 uppercase"
           >
-            Minutes
+            No Of Workouts
+          </th>
+          <th
+            class="px-4 py-2 text-left text-sm font-medium text-gray-500 uppercase"
+          >
+            Total Workout Minutes
           </th>
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
         <tr *ngFor="let user of pagedUsers; let i = index">
+          <td class="pl-8 text-sm text-gray-700">{{ user.name }}</td>
           <td class="px-4 py-2 text-sm text-gray-700">
-            {{ currentPage * pageSize + i + 1 }}
+            <ul class="flex gap-3 scroll">
+              <li *ngFor="let workout of user.workouts">{{ workout.type }}</li>
+            </ul>
           </td>
-          <td class="px-4 py-2 text-sm text-gray-700">{{ user.name }}</td>
           <td class="px-4 py-2 text-sm text-gray-700">
-            {{ user.workoutType }}
+            {{ user.workouts.length }}
           </td>
-          <td class="px-4 py-2 text-sm text-gray-700">{{ user.minutes }}</td>
+          <td class="px-4 py-2 text-sm text-gray-700">
+            {{ getTotalMinutes(user.workouts) }}
+          </td>
         </tr>
       </tbody>
     </table>

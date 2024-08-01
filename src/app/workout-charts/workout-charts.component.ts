@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
-import { UserDataService } from '../service/User_data';
+import { UserDataService, User } from '../service/User_data';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -16,16 +16,16 @@ export class WorkoutChartComponent implements OnInit {
     datasets: [],
     labels: [],
   };
-  barChartLabels: string[] = []; // Define barChartLabels
+  barChartLabels: string[] = [];
   barChartOptions: ChartOptions<'bar'> = {
     responsive: true,
   };
   barChartLegend = true;
   barChartPlugins = [];
-  barChartType: ChartType = 'bar'; // Define barChartType
+  barChartType: ChartType = 'bar';
 
   constructor(
-    @Inject(UserDataService) private UserDataService: UserDataService
+    @Inject(UserDataService) private userDataService: UserDataService
   ) {}
 
   ngOnInit(): void {
@@ -33,19 +33,36 @@ export class WorkoutChartComponent implements OnInit {
   }
 
   loadChartData(): void {
-    const users = this.UserDataService.getUsers();
+    const users = this.userDataService.getUsers();
     this.barChartLabels = users.map((user) => user.name);
+
+    const workoutTypes = ['Running', 'Cycling', 'Swimming', 'Yoga'];
+    const datasets = workoutTypes.map((type) => {
+      return {
+        data: users.map((user) => this.getTotalMinutesByType(user, type)),
+        label: type,
+        backgroundColor: this.getRandomColor(),
+        borderColor: this.getRandomColor(),
+        borderWidth: 1,
+      };
+    });
+
     this.barChartData = {
       labels: this.barChartLabels,
-      datasets: [
-        {
-          data: users.map((user) => user.minutes),
-          label: 'Minutes',
-          backgroundColor: 'rgba(63, 81, 181, 0.2)',
-          borderColor: 'rgba(63, 81, 181, 1)',
-          borderWidth: 1,
-        },
-      ],
+      datasets: datasets,
     };
+  }
+
+  getTotalMinutesByType(user: User, type: string): number {
+    const workout = user.workouts.find((workout) => workout.type === type);
+    return workout ? workout.minutes : 0;
+  }
+
+  getRandomColor(): string {
+    // Generate random color for each bar
+    const r = Math.floor(Math.random() * 255);
+    const g = Math.floor(Math.random() * 255);
+    const b = Math.floor(Math.random() * 255);
+    return `rgba(${r}, ${g}, ${b}, 0.6)`;
   }
 }

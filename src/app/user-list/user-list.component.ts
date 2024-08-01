@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { UserDataService, User } from '../service/User_data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.css',
+  styleUrls: ['./user-list.component.css'],
 })
 export class UserListComponent {
   users: User[] = [];
@@ -20,17 +19,17 @@ export class UserListComponent {
   pageSize = 5;
   pageCount = 0;
   worktype: string = '';
-  isshowFilter: boolean = false;
+  isShowFilter: boolean = false;
 
   constructor(
-    @Inject(UserDataService) private UserDataService: UserDataService
+    @Inject(UserDataService) private userDataService: UserDataService
   ) {
     this.initializeData();
   }
 
   initializeData() {
-    this.UserDataService.getUsersObservable().subscribe((users) => {
-      this.users = this.UserDataService.getUsers();
+    this.userDataService.getUsersObservable().subscribe((users) => {
+      this.users = users;
       this.filteredUsers = [...this.users];
       this.updatePageCount();
       this.updatePageUsers();
@@ -38,13 +37,13 @@ export class UserListComponent {
   }
 
   filterShow() {
-    this.isshowFilter = !this.isshowFilter;
+    this.isShowFilter = !this.isShowFilter;
   }
 
-  applyfilter(event: any) {
-    const filtervalue = event.target.value.toLowerCase();
+  applyFilter(event: any) {
+    const filterValue = event.target.value.toLowerCase();
     this.filteredUsers = this.users.filter((user) =>
-      user.name.toLocaleLowerCase().includes(filtervalue)
+      user.name.toLowerCase().includes(filterValue)
     );
     this.currentPage = 0;
     this.updatePageCount();
@@ -53,7 +52,9 @@ export class UserListComponent {
 
   filterByWorkoutType(type: string) {
     this.filteredUsers = type
-      ? this.users.filter((user) => user.workoutType == type)
+      ? this.users.filter((user) =>
+          user.workouts.some((workout) => workout.type === type)
+        )
       : [...this.users];
     this.currentPage = 0;
     this.updatePageCount();
@@ -65,12 +66,12 @@ export class UserListComponent {
   }
 
   updatePageUsers() {
-    let start = this.currentPage * this.pageSize;
+    const start = this.currentPage * this.pageSize;
     this.pagedUsers = this.filteredUsers.slice(start, start + this.pageSize);
   }
 
   nextPage() {
-    if (this.currentPage < this.pageCount) {
+    if (this.currentPage < this.pageCount - 1) {
       this.currentPage++;
       this.updatePageUsers();
     }
@@ -81,5 +82,8 @@ export class UserListComponent {
       this.currentPage--;
       this.updatePageUsers();
     }
+  }
+  getTotalMinutes(workouts: { type: string; minutes: number }[]): number {
+    return workouts.reduce((total, workout) => (total += workout.minutes), 0);
   }
 }
