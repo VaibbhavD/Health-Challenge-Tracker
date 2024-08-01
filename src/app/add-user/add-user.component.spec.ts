@@ -45,9 +45,14 @@ describe('AddUserComponent', () => {
   it('should call addUser on form submit', () => {
     component.onSubmit();
     expect(userDataService.addUser).toHaveBeenCalledWith({
+      id: 1,
       name: 'John Doe',
-      workoutType: 'Running',
-      minutes: 30,
+      workouts: [
+        {
+          type: 'Running',
+          minutes: 30,
+        },
+      ],
     });
   });
 });
