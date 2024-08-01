@@ -25,9 +25,9 @@ export class AddUserComponent {
 
   onSubmit() {
     let data: User = {
+      id: Math.random(),
       name: this.name,
-      workoutType: this.workoutType,
-      minutes: this.minutes,
+      workouts: [{ type: this.workoutType, minutes: this.minutes }],
     };
     this.UserDataService.addUser(data);
     // Reset form fields if needed
