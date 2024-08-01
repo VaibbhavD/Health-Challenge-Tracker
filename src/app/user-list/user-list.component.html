@@ -81,6 +81,7 @@
             {{ getTotalMinutes(user.workouts) }}
           </td>
         </tr>
+        <p *ngIf="!users">No Data</p>
       </tbody>
     </table>
   </div>
